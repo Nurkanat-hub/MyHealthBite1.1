@@ -28,7 +28,7 @@ jobs:
         working-directory: backend/myhealthbite
         run: |
           docker-compose up --build -d
-          sleep 10  # wait for services to boot
+          sleep 10
           docker ps
 
       - name: Run Go Tests in user-service
