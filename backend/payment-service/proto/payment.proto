@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package payment;
+
+option go_package = "payment-service/proto";
+
+service PaymentService {
+  rpc MakePayment (PaymentRequest) returns (PaymentResponse);
+  rpc GetPaymentHistory (PaymentHistoryRequest) returns (PaymentHistoryResponse);
+}
+
+message PaymentRequest {
+  string order_id = 1;
+  string user_name = 2;
+  string user_email = 3;
+  float amount = 4;
+}
+
+message PaymentResponse {
+  string status = 1; // "SUCCESS" or "FAILURE"
+  string message = 2;
+}
+
+message PaymentHistoryRequest {
+  string user_name = 1;
+  string status = 2;       // Optional: filter by "SUCCESS" or "FAILURE"
+  string from_date = 3;    // Optional: RFC3339 format
+  string to_date = 4;      // Optional: RFC3339 format
+  int32 limit = 5;         // Optional: limit number of results
+}
+
+message PaymentRecord {
+  string order_id = 1;
+  double amount = 2;
+  string status = 3;
+  string created_at = 4;
+}
+
+message PaymentHistoryResponse {
+  repeated PaymentRecord payments = 1;
+}

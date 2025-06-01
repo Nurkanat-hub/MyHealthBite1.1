@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package email;
+
+option go_package = "email-service/proto";
+
+// EmailService позволяет отправлять письма
+service EmailService {
+  rpc SendEmail (EmailRequest) returns (EmailResponse);
+}
+
+// Запрос на отправку письма
+message EmailRequest {
+  string to = 1;       // email получателя
+  string subject = 2;  // тема письма
+  string body = 3;     // текст письма
+}
+
+// Ответ от сервера
+message EmailResponse {
+  bool success = 1;
+  string message = 2;
+}

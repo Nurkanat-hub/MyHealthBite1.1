@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package cart;
+
+option go_package = "github.com/nurkanat/cartservice/proto;cart";
+
+message CartItem {
+  string id = 1;
+  string user_id = 2;
+  string dish_id = 3;
+  int32 quantity = 4;
+  string added_at = 5;
+}
+
+message AddToCartRequest {
+  string user_id = 1;
+  string dish_id = 2;
+  int32 quantity = 3;
+}
+
+message RemoveFromCartRequest {
+  string user_id = 1;
+  string dish_id = 2;
+}
+
+message GetCartRequest {
+  string user_id = 1;
+}
+
+message CartList {
+  repeated CartItem items = 1;
+}
+
+message Empty {}
+
+service CartService {
+  rpc AddToCart(AddToCartRequest) returns (Empty);
+  rpc RemoveFromCart(RemoveFromCartRequest) returns (Empty);
+  rpc GetCart(GetCartRequest) returns (CartList);
+}

@@ -1,0 +1,41 @@
+name: MyHealthBite CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.24.1
+
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Build and Run All Services
+        working-directory: backend/myhealthbite
+        run: |
+          docker-compose up --build -d
+          sleep 10  # wait for services to boot
+          docker ps
+
+      - name: Run Go Tests in user-service
+        working-directory: backend/myhealthbite/user-service
+        run: |
+          go test ./... -v
+
+      - name: Shutdown services
+        working-directory: backend/myhealthbite
+        run: docker-compose down

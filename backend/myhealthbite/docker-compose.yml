@@ -1,0 +1,23 @@
+services:
+  user-service:
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
+    ports:
+      - "50051:50051"
+      - "2112:2112"  # Prometheus metrics
+    depends_on:
+      - stats-service
+      - email-service
+
+  stats-service:
+    build:
+      context: ./stats-service
+    ports:
+      - "50054:50054"
+
+  email-service:
+    build:
+      context: ./email-service
+    ports:
+      - "50058:50058"

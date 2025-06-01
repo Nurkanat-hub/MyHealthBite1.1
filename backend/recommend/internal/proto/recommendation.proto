@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package recommendation;
+option go_package = "recommend/internal/proto;proto";
+
+
+service RecommendationService {
+  rpc GetPopularDishes (PopularRequest) returns (PopularResponse);
+}
+
+message PopularRequest {}
+
+message Dish {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string category = 4;
+  int32 calories = 5;
+  int32 proteins = 6;
+  int32 fats = 7;
+  int32 carbs = 8;
+  repeated string ingredients = 9;
+  int32 cook_time_minutes = 10;
+  float price = 11;
+}
+
+message PopularResponse {
+  repeated Dish dishes = 1;
+}

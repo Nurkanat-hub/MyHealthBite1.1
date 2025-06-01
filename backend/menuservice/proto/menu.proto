@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package menu;
+
+option go_package = "menuservice/proto;menu";
+
+message Dish {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string category = 4;
+  int32 calories = 5;
+  int32 proteins = 6;
+  int32 fats = 7;
+  int32 carbs = 8;
+  repeated string ingredients = 9;
+  int32 cook_time_minutes = 10;
+  int32 price = 11;
+}
+
+message Empty {}
+
+message DishList {
+  repeated Dish dishes = 1;
+}
+
+message CreateDishRequest {
+  string name = 1;
+  string description = 2;
+  string category = 3;
+  int32 calories = 4;
+  int32 proteins = 5;
+  int32 fats = 6;
+  int32 carbs = 7;
+  repeated string ingredients = 8;
+  int32 cook_time_minutes = 9;
+  int32 price = 10;
+}
+
+message DishIdRequest {
+  string id = 1;
+}
+
+message UpdateDishRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string category = 4;
+  int32 calories = 5;
+  int32 proteins = 6;
+  int32 fats = 7;
+  int32 carbs = 8;
+  repeated string ingredients = 9;
+  int32 cook_time_minutes = 10;
+  int32 price = 11;
+}
+
+message DeleteResponse {
+  string message = 1;
+}
+
+service MenuService {
+  rpc GetAllDishes (Empty) returns (DishList);
+  rpc CreateDish (CreateDishRequest) returns (Dish);
+  rpc GetDishById (DishIdRequest) returns (Dish);
+  rpc UpdateDish (UpdateDishRequest) returns (Dish);
+  rpc DeleteDish (DishIdRequest) returns (DeleteResponse);
+}

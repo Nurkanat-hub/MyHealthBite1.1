@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option go_package = "github.com/Nurkanat-hub/GoProject/tree/back-end/stats-service/proto;proto";
+
+package stats;
+
+service StatsService {
+  rpc InitStats(InitStatsRequest) returns (StatsResponse);
+  rpc GetStats(UserIdRequest) returns (StatsResponse);
+  rpc UpdateStats(UpdateStatsRequest) returns (StatsResponse);
+  rpc ResetDailyStats(UserIdRequest) returns (StatsResponse);
+  rpc DeleteStatsByUserId(UserIdRequest) returns (Empty);
+}
+
+message InitStatsRequest {
+  string user_id = 1;
+  int32 target_calories = 2;
+  int32 target_water_ml = 3;
+}
+
+message UpdateStatsRequest {
+  string user_id = 1;
+  int32 delta_calories = 2;
+  int32 delta_water_ml = 3;
+}
+
+message UserIdRequest {
+  string user_id = 1;
+}
+
+message StatsResponse {
+  string user_id = 1;
+  int32 target_calories = 2;
+  int32 current_calories = 3;
+  int32 target_water_ml = 4;
+  int32 current_water_ml = 5;
+  string updated_at = 6;
+}
+
+message Empty {}
