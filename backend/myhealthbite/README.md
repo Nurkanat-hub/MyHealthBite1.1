@@ -1,4 +1,6 @@
 # MyHealthBite
+![CI](https://github.com/Nurkanat-hub/MyHealthBite1.1/actions/workflows/ci.yml/badge.svg)
+
 
 MyHealthBite is a modular gRPC-based Go application that helps track user statistics and sends email notifications. The system consists of three microservices:
 
