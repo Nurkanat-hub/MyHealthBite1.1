@@ -36,6 +36,11 @@ jobs:
         run: |
           go test ./... -v
 
+      - name: Run SRE Tool
+        working-directory: backend/myhealthbite
+        run: |
+          go run sre_tool.go
+
       - name: Shutdown services
         working-directory: backend/myhealthbite
         run: docker-compose down
